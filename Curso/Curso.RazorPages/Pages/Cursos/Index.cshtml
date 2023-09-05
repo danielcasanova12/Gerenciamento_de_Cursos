@@ -1,5 +1,5 @@
 @page
-@model Cursos.RazorPages.Pages.Cursos.IndexCursos 
+@model Cursos.RazorPages.Pages.Cursos.IndexCursos
 @using Cursos.RazorPages.Pages.Cursos
 @{
     ViewData["Title"] = "Lista de Cursos";
@@ -10,12 +10,11 @@
 <p>
     <a asp-page="/Cursos/Create">Criar novo Curso</a>
 </p>
-
-<form method="get">
+<form method="post">
     <div class="form-group">
-        <label for="filtroNome">Filtrar por Nome:</label>
-        <input type="text" id="filtroNome" name="filtroNome" value="@Model.NomeFiltro" />
-        <button type="submit" class="btn btn-primary">Filtrar</button>
+        <input type="text" asp-for="NomeFiltro" placeholder="Filtrar por nome">
+        <input type="submit" class="btn btn-primary" value="Filtrar">
+        <a asp-page="/Cursos/Index" class="btn btn-secondary">Limpar Filtro</a>
     </div>
 </form>
 
@@ -24,43 +23,26 @@
         <tr>
             <th>Nome</th>
             <th>Descrição</th>
-            <th>
-                Data de Início
-                <a asp-page="/Cursos/Index" asp-route-Ordenacao="asc">(asc)</a>
-                <a asp-page="/Cursos/Index" asp-route-Ordenacao="desc">(desc)</a>
-            </th>
+            <th>Data de Início <a asp-page="/Cursos/Index" asp-route-Ordenacao="asc">(asc)</a> <a asp-page="/Cursos/Index" asp-route-Ordenacao="desc">(desc)</a></th>
             <th>Data de Término</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-@if (Model.CursosList.Any())
-{
-    @foreach (var curso in Model.CursosList)
-    {
-        // Verifique se curso.NomeCurso não é nulo e contém a letra do filtro
-        bool cursoContemLetra = !string.IsNullOrEmpty(curso.NomeCurso) &&
-                                curso.NomeCurso.Contains(Model.NomeFiltro, StringComparison.OrdinalIgnoreCase);
-
-        // Use classes CSS do Bootstrap para controlar a visibilidade
-        <tr class="@((cursoContemLetra) ? "" : "d-none")">
-            <td>@curso.NomeCurso</td>
-            <td>@curso.Descricao</td>
-            <td>@curso.DataInicio</td>
-            <td>@curso.DataTermino</td>
-            <td>
-                <a asp-page="./Editar" asp-route-id="@curso.CursoId">Alterar</a>
-                <a asp-page="./Visualizar" asp-route-id="@curso.CursoId">Detalhes</a>
-                <a asp-page="./Delete" asp-route-id="@curso.CursoId">Deletar</a>
-            </td>
-        </tr>
-    }
-}
-else
-{
-    <tr>
-        <td colspan="5">Nenhum curso cadastrado.</td>
-    </tr>
-}
-
+        @foreach (var curso in Model.CursosList)
+        {
+            <tr>
+                <td>@curso.NomeCurso</td>
+                <td>@curso.Descricao</td>
+                <td>@curso.DataInicio</td>
+                <td>@curso.DataTermino</td>
+                <td>
+                    <a asp-page="./Editar" asp-route-id="@curso.CursoId">Editar</a>
+                    <a asp-page="./Visualizar" asp-route-id="@curso.CursoId">Detalhes</a>
+                    <a asp-page="./Delete" asp-route-id="@curso.CursoId">Excluir</a>
+                    <a asp-page="./AdicionarAluno" asp-route-id="@curso.CursoId">Adicioanar aluno ao Curso</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

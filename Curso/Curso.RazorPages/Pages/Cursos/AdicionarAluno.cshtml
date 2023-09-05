@@ -1,0 +1,21 @@
+@page "{Id:int}"
+@model Curso.RazorPages.Pages.Cursos.AdicionarAlunoCursoModel
+
+<h1>Adicionar Aluno a Curso</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="ViewModel.AlunoId">Selecione um aluno:</label>
+        <select asp-for="ViewModel.AlunoId" class="form-control">
+            <option value="">Selecione um aluno</option>
+            @foreach (var aluno in Model.ViewModel.Alunos)
+            {
+                <option value="@aluno.AlunoId">@aluno.NomeAluno</option>
+            }
+        </select>
+    </div>
+    <input type="hidden" asp-for="ViewModel.CursoId" />
+    <button type="submit" class="btn btn-primary">Adicionar Aluno ao Curso</button>
+</form>
+
+<a asp-page="Index" class="btn btn-secondary">Voltar para a lista de cursos</a>
