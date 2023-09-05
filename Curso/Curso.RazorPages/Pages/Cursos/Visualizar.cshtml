@@ -1,0 +1,12 @@
+@page "{id:int}"
+@model Cursos.RazorPages.Pages.Cursos.VisualizarModel
+
+<h1>Detalhes do Curso</h1>
+
+<div>
+    <p><strong>Nome do Curso: </strong>@Model.CursoDetails.NomeCurso</p>
+    <p><strong>Descrição: </strong>@Model.CursoDetails.Descricao</p>
+    <p><strong>Data de Início: </strong>@Model.CursoDetails.DataInicio</p>
+    <p><strong>Data de Término: </strong>@Model.CursoDetails.DataTermino</p>
+</div>
+<a asp-page="Index">Voltar para a lista de cursos</a>
