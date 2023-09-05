@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9NrvF3R1kZ8gGf8fHk6giKeeYmh85JPMxXHLGBqPDPhSKpagRSOvSDrr73rIeI7BGHbfn2EwETf8iStguzgA5Q==",
+  "dgSpecHash": "SmyRVC+C6PV9RlmIybMr1rvibBKg8vu98j4On5bOa1CVMTDTL0bnB2JonL51IXuHCPptn8DpG5ULOiblsZHOuQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\daniel\\Documents\\GitHub\\Gerenciamento_de_Cursos\\Curso\\Curso.RazorPages\\Curso.RazorPages.csproj",
+  "projectFilePath": "c:\\Users\\daniel\\Documents\\GitHub\\Gerenciamento_de_Cursos\\Curso\\Curso.RazorPages\\Curso.RazorPages.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\daniel\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\daniel\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.10\\microsoft.data.sqlite.core.7.0.10.nupkg.sha512",
