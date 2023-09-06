@@ -14,6 +14,20 @@
             }
         </select>
     </div>
+    @if (!string.IsNullOrEmpty(ViewData["MensagemErroAluno"] as string))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData["MensagemErroAluno"]
+        </div>
+    }
+
+    @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])
+    {
+        <div class="alert alert-success" role="alert">
+            Operação concluída com sucesso!
+        </div>
+    }
+
     <input type="hidden" asp-for="ViewModel.CursoId" />
     <button type="submit" class="btn btn-primary">Adicionar Aluno ao Curso</button>
 </form>

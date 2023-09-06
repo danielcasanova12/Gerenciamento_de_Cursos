@@ -17,3 +17,16 @@
         <a asp-page="Index" class="btn btn-primary">Voltar à lista de cursos</a>
     </div>
 </form>
+            @if (!string.IsNullOrEmpty(ViewData["MensagemErro"] as string))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["MensagemErro"]
+                </div>
+            }
+
+            @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])
+            {
+                <div class="alert alert-success" role="alert">
+                    Aluno excluído com sucesso!
+                </div>
+            }

@@ -38,11 +38,13 @@ namespace Cursos.RazorPages.Pages.Alunos
             try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToPage("Index");
+                ViewData["ShowSuccessAlert"] = true;
+                return Page();
             }
             catch (Exception)
             {
-                return Page();
+                 ViewData["MensagemErro"] = "Não é possível excluir o aluno, pois ele está matriculado em cursos.";
+                 return Page();
             }
         }
 

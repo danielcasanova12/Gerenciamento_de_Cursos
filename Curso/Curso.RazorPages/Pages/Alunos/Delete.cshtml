@@ -18,7 +18,23 @@
             <p><strong>Nome do Aluno:</strong> @Model.AlunoToDelete.NomeAluno</p>
             <p><strong>Email:</strong> @Model.AlunoToDelete.Email</p>
             <p><strong>Data de Inscrição:</strong> @Model.AlunoToDelete.DataInscricao</p>
+
         </div>
+
+            @if (!string.IsNullOrEmpty(ViewData["MensagemErro"] as string))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["MensagemErro"]
+                </div>
+            }
+
+            @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])
+            {
+                <div class="alert alert-success" role="alert">
+                    Aluno excluído com sucesso!
+                </div>
+            }
+
 
         <form method="post">
             <div class="form-group">

@@ -55,6 +55,10 @@ namespace Curso.RazorPages.Pages.Cursos
                 if (aluno != null && curso != null)
                 {
                     // Verifique se o relacionamento já existe
+                    if (ViewModel.AlunoId == 0)
+                    {
+                        ViewData["MensagemErroAluno"] = "Por favor, selecione um aluno.";
+                    }
                     if (!await _context.AlunoCursos.AnyAsync(ac =>
                         ac.AlunoId == aluno.AlunoId && ac.CursoId == curso.CursoId))
                     {
@@ -64,13 +68,24 @@ namespace Curso.RazorPages.Pages.Cursos
                             AlunoId = aluno.AlunoId.GetValueOrDefault(),
                             CursoId = curso.CursoId.GetValueOrDefault()
                         };
-
-                        _context.Add(alunoCurso);
-                        await _context.SaveChangesAsync();
+                        try
+                        {
+                            _context.Add(alunoCurso);
+                            await _context.SaveChangesAsync();
+                            ViewData["ShowSuccessAlert"] = true;
+                            return Page();
+                        }
+                        catch (System.Exception)
+                        {
+                            ViewData["MensagemErro"] = "Não é possível excluir o curso.";
+                        }
+                        
                     }
                 }
-            }
-
+            }else{
+                     ViewData["MensagemErro"] = "Não é possível excluir o curso.";
+                     return RedirectToPage("Index");
+                }
             return RedirectToPage("Index");
         }
     }

@@ -42,10 +42,12 @@ namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace est
             try
             {
                 await _context.SaveChangesAsync();
-                return RedirectToPage("Index");
+                ViewData["ShowSuccessAlert"] = true;
+                return Page();
             }
             catch (Exception)
             {
+                ViewData["MensagemErro"] = "Não é possível excluir o aluno, pois ele está matriculado em cursos.";
                 return Page();
             }
         }

@@ -15,6 +15,7 @@ namespace Cursos.RazorPages.Pages.Alunos
 
         [BindProperty]
         public AlunoModel AlunoToDelete { get; set; } = new AlunoModel();
+        public int AlunoId { get; set; }
 
         public DeleteModel(AppDbContext context)
         {
@@ -29,43 +30,47 @@ namespace Cursos.RazorPages.Pages.Alunos
                 return NotFound();
             }
 
-            // Verifique se o aluno está matriculado em algum curso
-            bool alunoEstaMatriculado = _context.AlunoCursos.Any(ac => ac.AlunoId == id);
-
-            if (alunoEstaMatriculado)
-            {
-                // O aluno está matriculado em cursos, mostrar mensagem de erro ou fazer o tratamento apropriado
-                TempData["MensagemErro"] = "Não é possível excluir o aluno, pois ele está matriculado em cursos.";
-            }
+            
 
             try
             {
+                
                 _context.Alunos.Remove(alunoToDelete);
                 await _context.SaveChangesAsync();
-                return RedirectToPage("Index");
+                ViewData["ShowSuccessAlert"] = true;
             }
             catch (Exception)
             {
-                return Page();
+                ViewData["MensagemErro"] = "Não é possível excluir o aluno, pois ele está matriculado em cursos.";
             }
-        }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null || _context.Alunos == null)
-            {
-                return NotFound();
-            }
-
             var alunoModel = await _context.Alunos.FirstOrDefaultAsync(a => a.AlunoId == id);
-            if (alunoModel == null)
-            {
-                return NotFound();
-            }
-
+        if (alunoModel != null)
+        {
             AlunoToDelete = alunoModel;
-
+        }
+            // Recarregue a página para mostrar as mensagens
             return Page();
         }
+
+
+            public async Task<IActionResult> OnGetAsync(int? id)
+            {
+                if (id == null || _context.Alunos == null)
+                {
+                    return NotFound();
+                }
+
+                AlunoId = id.Value;  // Atribua o ID do aluno à propriedade AlunoId
+
+                var alunoModel = await _context.Alunos.FirstOrDefaultAsync(a => a.AlunoId == id);
+                if (alunoModel == null)
+                {
+                    return NotFound();
+                }
+
+                AlunoToDelete = alunoModel;
+
+                return Page();
+            }
     }
 }

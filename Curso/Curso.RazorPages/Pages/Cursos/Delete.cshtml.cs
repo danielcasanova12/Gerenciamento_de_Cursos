@@ -12,6 +12,7 @@ namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace est
     {
         private readonly AppDbContext _context;
         [BindProperty]
+        public int CursoId { get; set; }
         public CursoModel CursoToDelete { get; set; } = new CursoModel(); // Use a classe Curso para representar os cursos
 
         public DeleteModel(AppDbContext context)
@@ -19,7 +20,7 @@ namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace est
             _context = context;
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+                public async Task<IActionResult> OnPostAsync(int id)
         {
             var cursoToDelete = await _context.Cursos.FindAsync(id);
             if (cursoToDelete == null)
@@ -31,13 +32,23 @@ namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace est
             {
                 _context.Cursos.Remove(cursoToDelete);
                 await _context.SaveChangesAsync();
-                return RedirectToPage("Index");
+                ViewData["ShowSuccessAlert"] = true;
+                return Page();
             }
             catch (Exception)
             {
+                ViewData["MensagemErro"] = "Não é possível excluir o curso.";
                 return Page();
             }
+            var  cursoModel = await _context.Cursos.FirstOrDefaultAsync(a => a.CursoId == id);
+            if ( cursoModel != null)
+            {
+                 CursoToDelete =  cursoModel;
+            }
+                // Recarregue a página para mostrar as mensagens
+                return Page();
         }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
