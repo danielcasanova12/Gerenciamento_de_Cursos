@@ -33,17 +33,21 @@ namespace Cursos.RazorPages.Pages.Alunos
 
             try
             {
-                TempData["SuccessMessage"] = "Aluno criado com sucesso."; // Definindo mensagem de sucesso antes do redirecionamento
                 _context.Alunos.Add(AlunoDetails);
                 _context.SaveChanges();
-                return RedirectToPage("/Alunos/Index");
+                var criaAlunoComSucesso = true; 
+
+                ViewData["ShowSuccessAlert"] = true;
+                return Page();
+                
             }
             catch (Exception)
             {
-                TempData["ErrorMessage"] = "Erro ao criar o aluno."; // Definindo mensagem de erro antes do redirecionamento
+                ViewData["ErrorMessage"] = "Erro ao criar o aluno.";
                 return Page();
             }
         }
+
 
     }
 }

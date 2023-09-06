@@ -5,12 +5,14 @@ using Curso.RazorPages.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Cursos.RazorPages.Pages.Alunos
 {
     public class DeleteModel : PageModel
     {
         private readonly AppDbContext _context;
+
         [BindProperty]
         public AlunoModel AlunoToDelete { get; set; } = new AlunoModel();
 
@@ -25,6 +27,15 @@ namespace Cursos.RazorPages.Pages.Alunos
             if (alunoToDelete == null)
             {
                 return NotFound();
+            }
+
+            // Verifique se o aluno está matriculado em algum curso
+            bool alunoEstaMatriculado = _context.AlunoCursos.Any(ac => ac.AlunoId == id);
+
+            if (alunoEstaMatriculado)
+            {
+                // O aluno está matriculado em cursos, mostrar mensagem de erro ou fazer o tratamento apropriado
+                TempData["MensagemErro"] = "Não é possível excluir o aluno, pois ele está matriculado em cursos.";
             }
 
             try
