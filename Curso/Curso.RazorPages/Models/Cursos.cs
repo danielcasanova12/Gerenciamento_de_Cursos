@@ -27,6 +27,6 @@ namespace Curso.RazorPages.Models
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? DataTermino { get; set; }
 
-        public List<AlunoModel>? Alunos { get; set; }
+        public List<AlunoModel>? Alunos { get; set; } = new List<AlunoModel>();
     }
 }

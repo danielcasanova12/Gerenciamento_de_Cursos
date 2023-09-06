@@ -4,6 +4,7 @@ using Curso.RazorPages.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Cursos.RazorPages.Pages.Cursos
 {
@@ -11,6 +12,7 @@ namespace Cursos.RazorPages.Pages.Cursos
     {
         private readonly AppDbContext _context;
         public CursoModel CursoDetails { get; set; } = new CursoModel();
+        public List<AlunoModel> AlunosMatriculados { get; set; } = new List<AlunoModel>();
 
         public VisualizarModel(AppDbContext context)
         {
@@ -25,13 +27,23 @@ namespace Cursos.RazorPages.Pages.Cursos
             }
 
             CursoDetails = await _context.Cursos
-                .Include(c => c.Alunos) 
+                .Include(c => c.Alunos)
                 .FirstOrDefaultAsync(c => c.CursoId == id);
 
             if (CursoDetails == null)
             {
                 return NotFound();
             }
+            if (ModelState.IsValid)
+            {
+                     AlunosMatriculados = CursoDetails.Alunos.ToList();
+                   foreach (var item in AlunosMatriculados)
+                   {
+                    System.Console.WriteLine(item);
+                   }  
+            }
+            // Carregue todos os alunos matriculados no curso
+            AlunosMatriculados = CursoDetails.Alunos.ToList();
 
             return Page();
         }
