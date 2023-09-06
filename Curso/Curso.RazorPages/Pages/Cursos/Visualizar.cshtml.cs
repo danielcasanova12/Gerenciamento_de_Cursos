@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace esteja correto
+namespace Cursos.RazorPages.Pages.Cursos
 {
     public class VisualizarModel : PageModel
     {
         private readonly AppDbContext _context;
-        public CursoModel CursoDetails { get; set; } = new CursoModel(); // Use a classe Curso para representar os cursos
+        public CursoModel CursoDetails { get; set; } = new CursoModel();
 
         public VisualizarModel(AppDbContext context)
         {
@@ -19,18 +19,19 @@ namespace Cursos.RazorPages.Pages.Cursos // Certifique-se de que o namespace est
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Cursos == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var cursoModel = await _context.Cursos.FirstOrDefaultAsync(c => c.CursoId == id);
-            if (cursoModel == null)
+            CursoDetails = await _context.Cursos
+                .Include(c => c.Alunos) 
+                .FirstOrDefaultAsync(c => c.CursoId == id);
+
+            if (CursoDetails == null)
             {
                 return NotFound();
             }
-
-            CursoDetails = cursoModel;
 
             return Page();
         }

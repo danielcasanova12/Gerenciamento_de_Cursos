@@ -9,4 +9,13 @@
     <p><strong>Data de Início: </strong>@Model.CursoDetails.DataInicio</p>
     <p><strong>Data de Término: </strong>@Model.CursoDetails.DataTermino</p>
 </div>
+
+<h2>Alunos Inscritos</h2>
+<ul>
+    @foreach (var aluno in Model.CursoDetails.Alunos)
+    {
+        <li>@aluno.NomeAluno</li>
+    }
+</ul>
+
 <a asp-page="Index">Voltar para a lista de cursos</a>
