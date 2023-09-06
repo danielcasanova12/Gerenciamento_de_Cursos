@@ -3,6 +3,7 @@ using System;
 using Curso.RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Curso.RazorPages.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906000555_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
@@ -49,27 +52,6 @@ namespace Curso.RazorPages.Migrations
                     b.HasIndex("CursoId");
 
                     b.ToTable("AdicionarAlunoCursoViewModels");
-                });
-
-            modelBuilder.Entity("Curso.RazorPages.Models.AlunoCurso", b =>
-                {
-                    b.Property<int?>("AlunoCursoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AlunoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CursoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AlunoCursoId");
-
-                    b.HasIndex("AlunoId");
-
-                    b.HasIndex("CursoId");
-
-                    b.ToTable("AlunoCursos");
                 });
 
             modelBuilder.Entity("Curso.RazorPages.Models.AlunoModel", b =>
@@ -152,21 +134,6 @@ namespace Curso.RazorPages.Migrations
                     b.HasOne("Curso.RazorPages.Models.CursoModel", "Curso")
                         .WithMany()
                         .HasForeignKey("CursoId");
-
-                    b.Navigation("Curso");
-                });
-
-            modelBuilder.Entity("Curso.RazorPages.Models.AlunoCurso", b =>
-                {
-                    b.HasOne("Curso.RazorPages.Models.AlunoModel", "Aluno")
-                        .WithMany()
-                        .HasForeignKey("AlunoId");
-
-                    b.HasOne("Curso.RazorPages.Models.CursoModel", "Curso")
-                        .WithMany()
-                        .HasForeignKey("CursoId");
-
-                    b.Navigation("Aluno");
 
                     b.Navigation("Curso");
                 });

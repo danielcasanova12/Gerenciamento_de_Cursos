@@ -44,22 +44,31 @@ public async Task<IActionResult> OnPostAsync()
 
         if (aluno != null && curso != null)
         {
-            // Certifique-se de que a lista de cursos do aluno não seja nula
-            if (aluno.Cursos == null)
+            // Verifique se o relacionamento já existe
+            if (!await _context.AlunoCursos.AnyAsync(ac =>
+                ac.AlunoId == aluno.AlunoId && ac.CursoId == curso.CursoId))
             {
-                aluno.Cursos = new List<CursoModel>();
+                // Adicione o relacionamento entre o aluno e o curso
+            var alunoCurso = new AlunoCurso
+            {
+                AlunoId = aluno.AlunoId.GetValueOrDefault(),
+                CursoId = curso.CursoId.GetValueOrDefault()
+            };
+
+
+                _context.Add(alunoCurso);
+                await _context.SaveChangesAsync();
             }
-
-            // Adicione o aluno ao curso (faça o relacionamento)
-            aluno.Cursos.Add(curso);
-
-            // Salve as mudanças no banco de dados
-            await _context.SaveChangesAsync();
         }
     }
 
     return RedirectToPage("Index");
 }
+
+
+
+
+
 
 
     }
