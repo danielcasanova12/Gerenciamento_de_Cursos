@@ -17,8 +17,8 @@ namespace Curso.RazorPages.Models
         [Required(ErrorMessage = "E-mail do aluno é obrigatório")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Data de inscrição do aluno é obrigatória")]
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)] 
         public DateTime? DataInscricao { get; set; }
 
         public List<CursoModel>? Cursos { get; set; }

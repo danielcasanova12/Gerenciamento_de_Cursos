@@ -1,10 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Curso.RazorPages.Models;
 using Curso.RazorPages.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Cursos.RazorPages.Pages.Cursos
 {
@@ -26,24 +27,27 @@ namespace Cursos.RazorPages.Pages.Cursos
                 return NotFound();
             }
 
+            // Busque os IDs dos alunos matriculados no curso a partir da tabela AlunoCurso
+            var alunoIdsMatriculados = await _context.AlunoCursos
+                .Where(ac => ac.CursoId == id)
+                .Select(ac => ac.AlunoId)
+                .ToListAsync();
+
+            // Busque os detalhes do curso incluindo os alunos matriculados
             CursoDetails = await _context.Cursos
                 .Include(c => c.Alunos)
-                .FirstOrDefaultAsync(c => c.CursoId == id);
+                .Where(c => c.CursoId == id)
+                .FirstOrDefaultAsync();
 
             if (CursoDetails == null)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
-                     AlunosMatriculados = CursoDetails.Alunos.ToList();
-                   foreach (var item in AlunosMatriculados)
-                   {
-                    System.Console.WriteLine(item);
-                   }  
-            }
-            // Carregue todos os alunos matriculados no curso
-            AlunosMatriculados = CursoDetails.Alunos.ToList();
+
+            // Carregue todos os alunos matriculados no curso com base nos IDs obtidos
+            AlunosMatriculados = await _context.Alunos
+                .Where(a => alunoIdsMatriculados.Contains(a.AlunoId))
+                .ToListAsync();
 
             return Page();
         }

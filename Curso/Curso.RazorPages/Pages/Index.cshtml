@@ -1,16 +1,69 @@
 @page
 @model Feedback.RazorPages.Pages.Index
+<!DOCTYPE html>
+<html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Sua Página Inicial</title>
 </head>
+<body>
+    <div class="container text-center mt-5">
+        <h1>Bem-vindo à Sua Página Inicial</h1>
+        <div class="mx-auto" style="max-width: 800px;">
+            <!-- Estatísticas -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Cursos</h5>
+                            <p class="card-text">@Model.TotalCursos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Alunos</h5>
+                            <p class="card-text">@Model.TotalAlunos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Curso com Mais Inscricões</h5>
+                            <p class="card-text">@Model.CursoComMaisInscricoes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <div class="container text-center"> <!-- Use text-center para centralizar verticalmente -->
-    <div class="mx-auto" style="width: 1000px;"> <!-- Use mx-auto para centralizar horizontalmente -->
-      <p>Criar novo curso <a asp-page="./Cursos/Create">Clique aqui</a></p>
-      <p>Adicionar aluno a Cursos <a asp-page="./Alunos">Clique aqui</a></p>
+            <!-- Ações -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Criar Novo Curso</h5>
+                            <p class="card-text">Clique no botão abaixo para criar um novo curso.</p>
+                            <a href="./Cursos/Create" class="btn btn-primary">Criar Curso</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Adicionar Aluno </h5>
+                            <p class="card-text">Clique no botão abaixo para adicionar um novo aluno.</p>
+                            <a href="./Alunos" class="btn btn-primary">Adicionar Aluno</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-<div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

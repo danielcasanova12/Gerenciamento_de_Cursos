@@ -34,7 +34,6 @@ namespace Cursos.RazorPages.Pages.Alunos
 
             alunoToEdit.NomeAluno = AlunoToEdit.NomeAluno;
             alunoToEdit.Email = AlunoToEdit.Email;
-            alunoToEdit.DataInscricao = AlunoToEdit.DataInscricao;
 
             try
             {

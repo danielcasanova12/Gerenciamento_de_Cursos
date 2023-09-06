@@ -3,42 +3,48 @@
 @{
     ViewData["Title"] = "Lista de Alunos";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Lista de Alunos</h1>
 
-<h1>Lista de Alunos</h1>
+        <p>
+            <a class="btn btn-primary" asp-page="/Alunos/Create">Criar Novo Aluno</a>
+        </p>
 
-<p>
-    <a asp-page="/Alunos/Create">Criar novo Aluno</a>
-</p>
-<form method="post">
-    <div class="form-group">
-        <input type="text" asp-for="NomeFiltro" placeholder="Filtrar por nome">
-        <input type="submit" class="btn btn-primary" value="Filtrar">
-        <a asp-page="/Alunos/Index" class="btn btn-secondary">Limpar Filtro</a>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Data de Inscrição <a asp-page="/Alunos/Index" ></a> <a asp-page="/Alunos/Index" ></a></th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var aluno in Model.AlunosList)
+                {
+                    <tr>
+                        <td>@aluno.NomeAluno</td>
+                        <td>@aluno.Email</td>
+                        <td>@aluno.DataInscricao</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" asp-page="./Editar" asp-route-id="@aluno.AlunoId">Editar</a>
+                            <a class="btn btn-info btn-sm" asp-page="./Visualizar" asp-route-id="@aluno.AlunoId">Detalhes</a>
+                            <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@aluno.AlunoId">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-</form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Data de Inscrição <a asp-page="/Alunos/Index" asp-route-Ordenacao="asc">(asc)</a> <a asp-page="/Alunos/Index" asp-route-Ordenacao="desc">(desc)</a></th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var aluno in Model.AlunosList)
-        {
-            <tr>
-                <td>@aluno.NomeAluno</td>
-                <td>@aluno.Email</td>
-                <td>@aluno.DataInscricao</td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@aluno.AlunoId">Editar</a>
-                    <a asp-page="./Details" asp-route-id="@aluno.AlunoId">Detalhes</a>
-                    <a asp-page="./Delete" asp-route-id="@aluno.AlunoId">Excluir</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</body>
+</html>

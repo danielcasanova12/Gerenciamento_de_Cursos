@@ -1,18 +1,31 @@
 @page "{id:int}"
 @model Cursos.RazorPages.Pages.Alunos.DeleteModel
 
-<h1>Deletar Aluno</h1>
-<div>
-    <h1>Detalhes do aluno para remover</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Deletar Aluno</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Deletar Aluno</h1>
+        <div class="jumbotron">
+            <h2>Detalhes do aluno para remover</h2>
 
-    <p><strong>Nome do Aluno: </strong>@Model.AlunoToDelete.NomeAluno</p>
-    <p><strong>Email: </strong>@Model.AlunoToDelete.Email</p>
-    <p><strong>Data de Inscrição: </strong>@Model.AlunoToDelete.DataInscricao</p>
-</div>
+            <p><strong>Nome do Aluno:</strong> @Model.AlunoToDelete.NomeAluno</p>
+            <p><strong>Email:</strong> @Model.AlunoToDelete.Email</p>
+            <p><strong>Data de Inscrição:</strong> @Model.AlunoToDelete.DataInscricao</p>
+        </div>
 
-<form method="post">
-    <div class="form-group">
-        <input type="submit" value="Delete" class="btn btn-danger">
-        <a asp-page="Index" class="btn btn-primary">Voltar à lista de alunos</a>
+        <form method="post">
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger">
+                <a asp-page="Index" class="btn btn-primary">Voltar à lista de alunos</a>
+            </div>
+        </form>
     </div>
-</form>
+</body>
+</html>

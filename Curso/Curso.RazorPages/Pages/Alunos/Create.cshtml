@@ -3,32 +3,53 @@
 @{
     ViewData["Title"] = "Criar Aluno";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Criar Aluno</h1>
 
-<h1>Criar Aluno</h1>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
 
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AlunoDetails.NomeAluno">Nome do Aluno:</label>
-                <input asp-for="AlunoDetails.NomeAluno" class="form-control" />
-                <span asp-validation-for="AlunoDetails.NomeAluno" class="text-danger"></span>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
             </div>
-            <div class="form-group">
-                <label asp-for="AlunoDetails.Email">Email:</label>
-                <input asp-for="AlunoDetails.Email" class="form-control" />
-                <span asp-validation-for="AlunoDetails.Email" class="text-danger"></span>
+        }
+
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="AlunoDetails.NomeAluno">Nome do Aluno:</label>
+                        <input asp-for="AlunoDetails.NomeAluno" class="form-control" />
+                        <span asp-validation-for="AlunoDetails.NomeAluno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AlunoDetails.Email">Email:</label>
+                        <input asp-for="AlunoDetails.Email" class="form-control" />
+                        <span asp-validation-for="AlunoDetails.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Salvar">
+                        <a asp-page="/Alunos/Index" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="AlunoDetails.DataInscricao">Data de Inscrição:</label>
-                <input asp-for="AlunoDetails.DataInscricao" class="form-control" />
-                <span asp-validation-for="AlunoDetails.DataInscricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Salvar">
-                <a asp-page="/Alunos/Index" class="btn btn-secondary">Cancelar</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</body>
+</html>
