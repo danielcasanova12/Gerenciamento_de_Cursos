@@ -23,53 +23,55 @@ namespace Curso.RazorPages.Pages.Cursos
 
         public async Task<IActionResult> OnGetAsync(int Id)
         {
-            // Recupere a lista de alunos e o curso específico
+            // Recupere o curso específico
+            var curso = await _context.Cursos.FindAsync(Id);
+
+            if (curso == null)
+            {
+                return NotFound(); // Curso não encontrado
+            }
+
+            // Recupere a lista de alunos que NÃO estão matriculados no curso específico
             ViewModel = new AdicionarAlunoCursoViewModel
             {
                 CursoId = Id,
-                Alunos = await _context.Alunos.ToListAsync(),
-                Curso = await _context.Cursos.FindAsync(Id)
+                Alunos = await _context.Alunos
+                    .Where(aluno => !_context.AlunoCursos.Any(ac => ac.CursoId == curso.CursoId && ac.AlunoId == aluno.AlunoId))
+                    .ToListAsync(),
+                Curso = curso
             };
 
             return Page();
         }
 
-public async Task<IActionResult> OnPostAsync()
-{
-    if (ViewModel.AlunoId != null && ViewModel.CursoId != null)
-    {
-        // Verifique se o aluno e o curso existem no banco de dados
-        var aluno = await _context.Alunos.FindAsync(ViewModel.AlunoId);
-        var curso = await _context.Cursos.FindAsync(ViewModel.CursoId);
-
-        if (aluno != null && curso != null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            // Verifique se o relacionamento já existe
-            if (!await _context.AlunoCursos.AnyAsync(ac =>
-                ac.AlunoId == aluno.AlunoId && ac.CursoId == curso.CursoId))
+            if (ViewModel.AlunoId != null && ViewModel.CursoId != null)
             {
-                // Adicione o relacionamento entre o aluno e o curso
-            var alunoCurso = new AlunoCurso
-            {
-                AlunoId = aluno.AlunoId.GetValueOrDefault(),
-                CursoId = curso.CursoId.GetValueOrDefault()
-            };
+                // Verifique se o aluno e o curso existem no banco de dados
+                var aluno = await _context.Alunos.FindAsync(ViewModel.AlunoId);
+                var curso = await _context.Cursos.FindAsync(ViewModel.CursoId);
 
+                if (aluno != null && curso != null)
+                {
+                    // Verifique se o relacionamento já existe
+                    if (!await _context.AlunoCursos.AnyAsync(ac =>
+                        ac.AlunoId == aluno.AlunoId && ac.CursoId == curso.CursoId))
+                    {
+                        // Adicione o relacionamento entre o aluno e o curso
+                        var alunoCurso = new AlunoCurso
+                        {
+                            AlunoId = aluno.AlunoId.GetValueOrDefault(),
+                            CursoId = curso.CursoId.GetValueOrDefault()
+                        };
 
-                _context.Add(alunoCurso);
-                await _context.SaveChangesAsync();
+                        _context.Add(alunoCurso);
+                        await _context.SaveChangesAsync();
+                    }
+                }
             }
+
+            return RedirectToPage("Index");
         }
-    }
-
-    return RedirectToPage("Index");
-}
-
-
-
-
-
-
-
     }
 }
