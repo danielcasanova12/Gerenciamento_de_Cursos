@@ -21,27 +21,48 @@
 
         </div>
 
-            @if (!string.IsNullOrEmpty(ViewData["MensagemErro"] as string))
+ 
+
+
+
+
+
+
+        <form method="post">
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger" id="deleteButton">
+
+                <a asp-page="Index" class="btn btn-primary">Voltar à lista de alunos</a>
+            </div>
+        </form>
+                   @if (!string.IsNullOrEmpty(ViewData["MensagemErro"] as string))
             {
                 <div class="alert alert-danger" role="alert">
                     @ViewData["MensagemErro"]
                 </div>
             }
-
-            @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])
-            {
-                <div class="alert alert-success" role="alert">
-                    Aluno excluído com sucesso!
-                </div>
-            }
-
-
-        <form method="post">
-            <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-danger">
-                <a asp-page="Index" class="btn btn-primary">Voltar à lista de alunos</a>
+                @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])
+        {
+             <script>
+                // Desabilitar o botão "Salvar" quando o alerta de sucesso é mostrado
+                document.getElementById("btnSalvar").disabled = true;
+                
+            </script>
+            <div class="alert alert-success" role="alert">
+                Aluno excluído com sucesso! O botão "Delete" foi desabilitado.
             </div>
-        </form>
+            
+        }
     </div>
 </body>
 </html>
+<script>
+    document.getElementById("deleteButton").addEventListener("click", function() {
+        document.querySelector("form").submit();
+    });
+</script>
+
+
+
+
+
