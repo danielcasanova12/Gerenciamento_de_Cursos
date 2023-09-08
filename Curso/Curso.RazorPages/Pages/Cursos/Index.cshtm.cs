@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cursos.RazorPages.Pages.Cursos
 {
-    public class  IndexCursos  : PageModel
+    public class IndexCursos : PageModel
     {
         private readonly AppDbContext _context;
 
@@ -21,19 +21,21 @@ namespace Cursos.RazorPages.Pages.Cursos
 
         public List<CursoModel> CursosList { get; set; } = new List<CursoModel>();
 
-        public  IndexCursos (AppDbContext context)
+        public IndexCursos(AppDbContext context)
         {
             _context = context;
         }
-
         public async Task OnGetAsync()
         {
             var cursosQuery = _context.Cursos.AsQueryable();
 
-            if (!string.IsNullOrEmpty(NomeFiltro))
-            {
-                cursosQuery = cursosQuery.Where(c => c.NomeCurso!.Contains(NomeFiltro));
-            }
+            
+                if (!string.IsNullOrEmpty(NomeFiltro))
+               {
+                    cursosQuery = cursosQuery.Where(c => EF.Functions.Like(c.NomeCurso, $"%{NomeFiltro}%"));
+               }
+            
+
 
             if (Ordenacao == "asc")
             {

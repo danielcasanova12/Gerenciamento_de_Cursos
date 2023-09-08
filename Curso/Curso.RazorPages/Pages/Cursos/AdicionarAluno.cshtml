@@ -16,9 +16,10 @@
     </div>
     @if (!string.IsNullOrEmpty(ViewData["MensagemErroAluno"] as string))
     {
-        <div class="alert alert-danger" role="alert">
-            @ViewData["MensagemErroAluno"]
-        </div>
+        <div class="alert alert-success alert-dismissable">
+	<a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+	<p><strong>Atenção:</strong> você tem informações importantes para ler. <a href="#" class="alert-link">Veja mais detalhes aqui.</a></p>
+</div>
     }
 
     @if (ViewData["ShowSuccessAlert"] != null && (bool)ViewData["ShowSuccessAlert"])

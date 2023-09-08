@@ -3,37 +3,43 @@
 @{
     ViewData["Title"] = "Criar Curso";
 }
-
-<h1>Criar Curso</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CursoDetails.NomeCurso">Nome do Curso:</label>
-                <input asp-for="CursoDetails.NomeCurso" class="form-control" />
-                <span asp-validation-for="CursoDetails.NomeCurso" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CursoDetails.Descricao">Descrição:</label>
-                <textarea asp-for="CursoDetails.Descricao" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="CursoDetails.Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CursoDetails.DataInicio">Data de Início:</label>
-                <input asp-for="CursoDetails.DataInicio" class="form-control" />
-                <span asp-validation-for="CursoDetails.DataInicio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CursoDetails.DataTermino">Data de Término:</label>
-                <input asp-for="CursoDetails.DataTermino" class="form-control" />
-                <span asp-validation-for="CursoDetails.DataTermino" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Salvar">
-                <a asp-page="/Cursos/Index" class="btn btn-secondary">Cancelar</a>
-            </div>
-        </form>
+<div class=" justify-content-center">
+<div class="container">
+    <h1 class="mt-4">Criar Curso</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CursoDetails.NomeCurso">Nome do Curso:</label>
+                    <input asp-for="CursoDetails.NomeCurso" class="form-control" />
+                    <span asp-validation-for="CursoDetails.NomeCurso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CursoDetails.Descricao">Descrição:</label>
+                    <textarea asp-for="CursoDetails.Descricao" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="CursoDetails.Descricao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CursoDetails.DataInicio">Data de Início:</label>
+                    <input asp-for="CursoDetails.DataInicio" class="form-control" />
+                    <span asp-validation-for="CursoDetails.DataInicio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CursoDetails.DataTermino">Data de Término:</label>
+                    <input asp-for="CursoDetails.DataTermino" class="form-control" />
+                    <span asp-validation-for="CursoDetails.DataTermino" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Salvar">
+                    <a asp-page="/Cursos/Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+</div>
+<!-- Adicione o Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Adicione o Bootstrap JavaScript (opcional, se necessário) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

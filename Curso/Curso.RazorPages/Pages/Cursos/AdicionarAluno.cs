@@ -73,7 +73,7 @@ namespace Curso.RazorPages.Pages.Cursos
                             _context.Add(alunoCurso);
                             await _context.SaveChangesAsync();
                             ViewData["ShowSuccessAlert"] = true;
-                            return Page();
+                            return RedirectToPage("Index");
                         }
                         catch (System.Exception)
                         {
@@ -81,11 +81,12 @@ namespace Curso.RazorPages.Pages.Cursos
                         }
                         
                     }
-                }
-            }else{
+                }else{
                      ViewData["MensagemErro"] = "Não é possível excluir o curso.";
                      return RedirectToPage("Index");
                 }
+            }
+
             return RedirectToPage("Index");
         }
     }

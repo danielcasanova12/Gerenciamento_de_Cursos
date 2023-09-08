@@ -17,23 +17,30 @@ namespace Cursos.RazorPages.Pages.Cursos // Defina o namespace correto para a p�
             _context = context;
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+public async Task<IActionResult> OnPostAsync()
+{
+    if (!ModelState.IsValid)
+    {
+        return Page();
+    }
 
-            try
-            {
-                _context.Cursos.Add(CursoDetails); // Use DbSet<Cursos> para adicionar o curso ao contexto
-                await _context.SaveChangesAsync();
-                return RedirectToPage("/Cursos/Index"); // Redirecione para a página de listagem de cursos
-            }
-            catch (Exception)
-            {
-                return Page();
-            }
-        }
+    if (CursoDetails.DataTermino <= CursoDetails.DataInicio)
+    {
+        ModelState.AddModelError("CursoDetails.DataTermino", "A data de término deve ser posterior à data de início.");
+        return Page();
+    }
+
+    try
+    {
+        _context.Cursos.Add(CursoDetails);
+        await _context.SaveChangesAsync();
+        return RedirectToPage("/Cursos/Index");
+    }
+    catch (Exception)
+    {
+        return Page();
+    }
+}
+
     }
 }
