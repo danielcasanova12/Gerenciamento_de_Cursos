@@ -10,6 +10,7 @@ namespace Cursos.RazorPages.Pages.Alunos
     public class CreateModel : PageModel
     {
         private readonly AppDbContext _context;
+        public DateTime? DataInscricao { get; set; }
 
         [BindProperty]
         public AlunoModel AlunoDetails { get; set; } = new AlunoModel();
@@ -22,31 +23,42 @@ namespace Cursos.RazorPages.Pages.Alunos
         public IActionResult OnGet()
         {
             return Page();
+
         }
 
         public IActionResult OnPost()
+{
+    if (!ModelState.IsValid)
+    {
+        return Page();
+    }
+
+    try
+    {
+        AlunoDetails.DataInscricao = DateTime.Now;
+        if (AlunoDetails.DataInscricao == null)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            try
-            {
-                _context.Alunos.Add(AlunoDetails);
-                _context.SaveChanges();
-                var criaAlunoComSucesso = true; 
-
-                ViewData["ShowSuccessAlert"] = true;
-                return Page();
-                
-            }
-            catch (Exception)
-            {
-                ViewData["ErrorMessage"] = "Erro ao criar o aluno.";
-                return Page();
-            }
+            AlunoDetails.DataInscricao = DateTime.Now;
+            ViewData["ErrorMessage"] = "Erro ao criar o aluno.";
+            return RedirectToPage("Index"); 
         }
+
+       
+        
+        _context.Alunos.Add(AlunoDetails);
+        _context.SaveChanges();
+        var criaAlunoComSucesso = true; 
+
+        ViewData["ShowSuccessAlert"] = true;
+        return Page();
+    }
+    catch (Exception)
+    {
+        ViewData["ErrorMessage"] = "Erro ao criar o aluno.";
+        return Page();
+    }
+}
+
 
 
     }

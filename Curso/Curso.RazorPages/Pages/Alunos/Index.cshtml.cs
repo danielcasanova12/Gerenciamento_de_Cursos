@@ -30,20 +30,7 @@ namespace Cursos.RazorPages.Pages.Alunos
         {
             var alunosQuery = _context.Alunos.AsQueryable();
 
-            if (!string.IsNullOrEmpty(NomeFiltro))
-            {
-                alunosQuery = alunosQuery.Where(a => a.NomeAluno!.Contains(NomeFiltro));
-            }
-
-            if (Ordenacao == "asc")
-            {
-                alunosQuery = alunosQuery.OrderBy(a => a.DataInscricao);
-            }
-            else if (Ordenacao == "desc")
-            {
-                alunosQuery = alunosQuery.OrderByDescending(a => a.DataInscricao);
-            }
-
+            
             AlunosList = await alunosQuery.ToListAsync();
         }
     }

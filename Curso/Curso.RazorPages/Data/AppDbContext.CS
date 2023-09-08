@@ -11,7 +11,6 @@ namespace Curso.RazorPages.Data
 
         public DbSet<CursoModel> Cursos { get; set; }
         public DbSet<AlunoModel> Alunos { get; set; }
-        public DbSet<AdicionarAlunoCursoViewModel> AdicionarAlunoCursoViewModels { get; set; }
         public DbSet<AlunoCurso> AlunoCursos { get; set; }
 
         

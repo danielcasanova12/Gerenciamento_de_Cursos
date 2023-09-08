@@ -18,7 +18,6 @@ namespace Curso.RazorPages.Models
         public string? Email { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)] 
         public DateTime? DataInscricao { get; set; }
 
         public List<CursoModel>? Cursos { get; set; }
